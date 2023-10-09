@@ -58,9 +58,15 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             ),
             SizedBox(height: 20.0),
-            CounterA(),
+            CounterA(
+              counter: counter,
+              // Inversion Of Control
+              increment: increment,
+            ),
             SizedBox(height: 20.0),
-            Middle(),
+            Middle(
+              counter: counter,
+            ),
           ],
         ),
       ),
@@ -69,7 +75,14 @@ class _MyHomePageState extends State<MyHomePage> {
 }
 
 class CounterA extends StatelessWidget {
-  const CounterA({super.key});
+  final int counter;
+  final void Function() increment;
+
+  const CounterA({
+    super.key,
+    required this.counter,
+    required this.increment,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -79,11 +92,12 @@ class CounterA extends StatelessWidget {
       child: Column(
         children: [
           Text(
-            '0',
+            '$counter',
             style: TextStyle(fontSize: 48.0),
           ),
+          // Inversion Of Control
           ElevatedButton(
-            onPressed: () {},
+            onPressed: increment,
             child: Text(
               'Increment',
               style: TextStyle(fontSize: 20.0),
@@ -96,7 +110,12 @@ class CounterA extends StatelessWidget {
 }
 
 class Middle extends StatelessWidget {
-  const Middle({super.key});
+  final int counter;
+
+  const Middle({
+    super.key,
+    required this.counter,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -107,7 +126,7 @@ class Middle extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         mainAxisSize: MainAxisSize.min,
         children: [
-          CounterB(),
+          CounterB(counter: counter),
           SizedBox(width: 20.0),
           Sibling(),
         ],
@@ -117,7 +136,12 @@ class Middle extends StatelessWidget {
 }
 
 class CounterB extends StatelessWidget {
-  const CounterB({super.key});
+  final int counter;
+
+  const CounterB({
+    super.key,
+    required this.counter,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -125,7 +149,7 @@ class CounterB extends StatelessWidget {
       color: Colors.yellow[100],
       padding: const EdgeInsets.all(20.0),
       child: Text(
-        '0',
+        '$counter',
         style: TextStyle(fontSize: 24.0),
       ),
     );
@@ -144,8 +168,7 @@ class Sibling extends StatelessWidget {
         'Sibling',
         style: TextStyle(fontSize: 24.0),
       ),
-    );;
+    );
+    ;
   }
 }
-
-
